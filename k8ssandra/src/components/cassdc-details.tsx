@@ -5,7 +5,11 @@ import { CassandraDatacenter } from "../cassdc";
 const {
   Component: {
     Badge,
-    DrawerItem
+    DrawerItem,
+    Table,
+    TableHead,
+    TableCell,
+    TableRow,
   },
 } = Renderer; 
 export interface CassandraDatacenterDetailsProps extends Renderer.Component.KubeObjectDetailsProps<CassandraDatacenter>{
@@ -24,6 +28,95 @@ export class CassandraDatacenterDetails extends React.Component<CassandraDatacen
               return (<div key={"replacement" + index}>{replacement}</div>);
             })}
       </DrawerItem>
+    }
+    const cassandraYamlHeader = <div className="drawer-title-module__DrawerTitle--mJBGT drawer-title-module__title--hFfE2">Cassandra Yaml</div>;
+    var cassandraYaml = <div>{cassandraYamlHeader}</div>;
+    if (cassdc.spec.config) {
+      if ("cassandra-yaml" in cassdc.spec.config) {
+        cassandraYaml = <div>
+          {cassandraYamlHeader}
+          <div>
+            <Table>
+              <TableHead>
+                <TableCell>Setting</TableCell>
+                <TableCell>Value</TableCell>
+              </TableHead>
+              {Object.keys(cassdc.spec.config["cassandra-yaml"]).map((key, index) => {
+                return (<TableRow key={"cassandraYaml" + index}>
+                  <TableCell>{key}</TableCell>
+                  <TableCell>{JSON.stringify(cassdc.spec.config["cassandra-yaml"][key])}</TableCell>
+                </TableRow>);
+              })}
+            </Table>
+          </div>
+        </div>;
+      }
+    }
+
+    const jvmOptionsHeader = <div className="drawer-title-module__DrawerTitle--mJBGT drawer-title-module__title--hFfE2">JVM Options</div>;
+    var jvmOptions = <div>{jvmOptionsHeader}</div>;
+    if (cassdc.spec.config) {
+      if ("jvm-options" in cassdc.spec.config) {
+        jvmOptions = <div>
+          {jvmOptionsHeader}
+          {displayJvmOptions(cassdc.spec.config["jvm-options"])}
+        </div>;
+      }
+    }
+
+    const jvmServerOptionsHeader = <div className="drawer-title-module__DrawerTitle--mJBGT drawer-title-module__title--hFfE2">JVM Server Options</div>;
+    var jvmOptions = <div>{jvmOptionsHeader}</div>;
+    if (cassdc.spec.config) {
+      if ("jvm-server-options" in cassdc.spec.config) {
+        jvmOptions = <div>
+          {jvmServerOptionsHeader}
+          {displayJvmOptions(cassdc.spec.config["jvm-server-options"])}
+        </div>;
+      }
+    }
+
+    const jvm11OptionsHeader = <div className="drawer-title-module__DrawerTitle--mJBGT drawer-title-module__title--hFfE2">JVM11 Server Options</div>;
+    var jvm11Options = <div>{jvm11OptionsHeader}</div>;
+    if (cassdc.spec.config) {
+      if ("jvm11-server-options" in cassdc.spec.config && "additional-jvm-opts" in cassdc.spec.config["jvm11-server-options"]) {
+        jvm11Options = <div>
+          {jvm11OptionsHeader}
+          <div>
+            <Table>
+              <TableHead>
+                <TableCell>Setting</TableCell>
+              </TableHead>
+              {cassdc.spec.config["jvm11-server-options"]["additional-jvm-opts"].map((setting, index) => {
+                return (<TableRow key={"jvm11ServerOptions" + index}>
+                  <TableCell>{setting}</TableCell>
+                </TableRow>);
+              })}
+            </Table>
+          </div>
+        </div>;
+      }
+    }
+
+    const cassandraEnvHeader = <div className="drawer-title-module__DrawerTitle--mJBGT drawer-title-module__title--hFfE2">cassandra-env.sh</div>;
+    var cassandraEnvOptions = <div>{cassandraEnvHeader}</div>;
+    if (cassdc.spec.config) {
+      if ("cassandra-env-sh" in cassdc.spec.config && "additional-jvm-opts" in cassdc.spec.config["cassandra-env-sh"]) {
+        cassandraEnvOptions = <div>
+          {cassandraEnvHeader}
+          <div>
+            <Table>
+              <TableHead>
+                <TableCell>Setting</TableCell>
+              </TableHead>
+              {cassdc.spec.config["cassandra-env-sh"]["additional-jvm-opts"].map((setting, index) => {
+                return (<TableRow key={"cassandra-env-sh" + index}>
+                  <TableCell>{setting}</TableCell>
+                </TableRow>);
+              })}
+            </Table>
+          </div>
+        </div>;
+      }
     }
 
     return (
@@ -69,7 +162,28 @@ export class CassandraDatacenterDetails extends React.Component<CassandraDatacen
           })}
         </DrawerItem>
         {nodeReplacements}
+        {cassandraYaml}
+        {jvmOptions}
+        {jvm11Options}
+        {cassandraEnvOptions}
       </div>
     )
   }
+}
+
+function displayJvmOptions(jvmOptions: CassandraDatacenter["spec"]["config"]["jvm-options"]) {
+  return <div>
+  <Table>
+    <TableHead>
+      <TableCell>Setting</TableCell>
+      <TableCell>Value</TableCell>
+    </TableHead>
+    {Object.keys(jvmOptions).map((key, index) => {
+      return (<TableRow key={"jvmServerOptions" + index}>
+        <TableCell>{key}</TableCell>
+        <TableCell>{jvmOptions[key]}</TableCell>
+      </TableRow>);
+    })}
+  </Table>
+  </div>;
 }

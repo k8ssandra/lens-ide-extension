@@ -27,6 +27,21 @@ export class CassandraDatacenter extends Renderer.K8sApi.KubeObject {
     serverVersion: string;
     serverType: string;
     serverImage: string;
+    config: {
+      "cassandra-yaml": {
+        [key: string]: any;
+      },
+      "jvm-options": {
+        [key: string]: string;
+      },
+      "jvm-server-options": CassandraDatacenter["spec"]["config"]["jvm-options"],
+      "jvm11-server-options": {
+        "additional-jvm-opts": string[];
+      },
+      "cassandra-env-sh": {
+        "additional-jvm-opts": string[];
+      },
+    };
   }
   status: {
     conditions: {
