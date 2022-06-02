@@ -23,18 +23,26 @@
     "styles": []
   },
   "scripts": {
-    "build": "webpack --config webpack.config.js",
-    "dev": "npm run build --watch"
+    "clean": "rimraf ./dist",
+    "start": "webpack --watch",
+    "dev": "npm run start",
+    "build": "npm run clean && webpack",
+    "pretty": "prettier --write \"./src/**/*{.ts,.tsx,.js,.json,.scss,.css,.less,.html}\"",
+    "pretty:check": "prettier --check \"./src/**/*{.ts,.tsx,.js,.json,.scss,.css,.less,.html}\""
   },
-  "dependencies": {},
   "devDependencies": {
-    "ts-loader": "^8.0.4",
-    "typescript": "^4.0.3",
     "@k8slens/extensions": "^5.0.0",
-    "@types/node": "^12.18.3",
-    "@types/react": "^16.9.35",
-    "mobx": "^6.3.0",
-    "webpack": "^4.44.2",
-    "webpack-cli": "^3.1.1"
+    "@types/node": "^16.9.1",
+    "@types/react": "^17.0.20",
+    "css-loader": "^6.7.1",
+    "prettier": "2.3.2",
+    "rimraf": "^3.0.2",
+    "sass": "^1.52.1",
+    "sass-loader": "^13.0.0",
+    "style-loader": "^3.3.1",
+    "ts-loader": "^9.2.3",
+    "typescript": "^4.3.5",
+    "webpack": "^5.44.0",
+    "webpack-cli": "^4.8.0"
   }
 }
