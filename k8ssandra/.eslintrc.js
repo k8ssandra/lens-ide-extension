@@ -13,7 +13,8 @@ module.exports =  {
         sourceType: 'module',
       },
       rules: {
-        "indent": ["error", 2]
+        "indent": ["error", 2],
+        "quotes": ["error", "single"]
       },
     },
     {
@@ -30,7 +31,8 @@ module.exports =  {
         jsx: true,
       },
       rules: {
-        "indent": ["error", 2]
+        "indent": ["error", 2],
+        "quotes": ["error", "single"]
       },
     },
     {
@@ -49,6 +51,7 @@ module.exports =  {
       },
       rules: {
         "indent": ["error", 2],
+        "quotes": ["error", "single"],
         "no-unused-vars": "off",
       }
     },
