@@ -25,14 +25,10 @@ export class CassandraDatacenterPage extends React.Component<{
           store={cassandraDatacenterStore}
           sortingCallbacks={{
             [sortBy.name]: (cassdc: CassandraDatacenter) => cassdc.getName(),
-            [sortBy.namespace]: (cassdc: CassandraDatacenter) =>
-              cassdc.metadata.namespace,
-            [sortBy.cluster]: (cassdc: CassandraDatacenter) =>
-              cassdc.spec.clusterName,
+            [sortBy.namespace]: (cassdc: CassandraDatacenter) => cassdc.metadata.namespace,
+            [sortBy.cluster]: (cassdc: CassandraDatacenter) => cassdc.spec.clusterName,
           }}
-          searchFilters={[
-            (cassdc: CassandraDatacenter) => cassdc.getSearchFields(),
-          ]}
+          searchFilters={[(cassdc: CassandraDatacenter) => cassdc.getSearchFields()]}
           renderHeaderTitle="Cassandra Datacenters"
           renderTableHeader={[
             { title: 'Name', className: 'name', sortBy: sortBy.name },
@@ -61,7 +57,7 @@ export class CassandraDatacenterPage extends React.Component<{
 }
 
 function renderProgress(progress: string) {
-  var className = 'info';
+  let className = 'info';
   switch (progress) {
     case 'Ready':
       className = 'success';
@@ -70,7 +66,5 @@ function renderProgress(progress: string) {
       className = 'warning';
       break;
   }
-  return (
-    <Badge key={'progress' + progress} label={progress} className={className} />
-  );
+  return <Badge key={`progress${progress}`} label={progress} className={className} />;
 }

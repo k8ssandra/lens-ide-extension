@@ -2,11 +2,15 @@ import { Renderer } from '@k8slens/extensions';
 
 export class CassandraDatacenter extends Renderer.K8sApi.KubeObject {
   static kind = 'CassandraDatacenter';
+
   static namespaced = true;
+
   static apiBase = '/apis/cassandra.datastax.com/v1beta1/cassandradatacenters';
 
   kind: string;
+
   apiVersion: string;
+
   metadata: {
     name: string;
     namespace: string;
@@ -21,6 +25,7 @@ export class CassandraDatacenter extends Renderer.K8sApi.KubeObject {
       [key: string]: string;
     };
   };
+
   spec: {
     clusterName: string;
     size: number;
@@ -43,6 +48,7 @@ export class CassandraDatacenter extends Renderer.K8sApi.KubeObject {
       };
     };
   };
+
   status: {
     conditions: {
       lastTransitionTime: string;

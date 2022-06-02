@@ -2,11 +2,15 @@ import { Renderer } from '@k8slens/extensions';
 
 export class K8ssandraCluster extends Renderer.K8sApi.KubeObject {
   static kind = 'K8ssandraCluster';
+
   static namespaced = true;
+
   static apiBase = '/apis/k8ssandra.io/v1alpha1/k8ssandraclusters';
 
   kind: string;
+
   apiVersion: string;
+
   metadata: {
     name: string;
     namespace: string;
@@ -21,6 +25,7 @@ export class K8ssandraCluster extends Renderer.K8sApi.KubeObject {
       [key: string]: string;
     };
   };
+
   spec: {
     cassandra: {
       config: {
@@ -54,6 +59,7 @@ export class K8ssandraCluster extends Renderer.K8sApi.KubeObject {
       };
     };
   };
+
   status: {
     datacenters: {
       [key: string]: {

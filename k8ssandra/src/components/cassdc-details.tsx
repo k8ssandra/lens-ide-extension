@@ -5,30 +5,29 @@ import { CassandraDatacenter } from '../cassdc';
 const {
   Component: { Badge, DrawerItem, Table, TableHead, TableCell, TableRow },
 } = Renderer;
-export interface CassandraDatacenterDetailsProps
-  extends Renderer.Component.KubeObjectDetailsProps<CassandraDatacenter> {}
+export type CassandraDatacenterDetailsProps = Renderer.Component.KubeObjectDetailsProps<CassandraDatacenter>;
 
 export class CassandraDatacenterDetails extends React.Component<CassandraDatacenterDetailsProps> {
   render() {
     const { object: cassdc } = this.props;
     if (!cassdc) return null;
 
-    var nodeReplacements = <DrawerItem name="Node Replacements"></DrawerItem>;
+    let jvmOptions = <div />;
+
+    let nodeReplacements = <DrawerItem name="Node Replacements" />;
     if (cassdc.status.nodeReplacements) {
       nodeReplacements = (
         <DrawerItem name="Node Replacements">
-          {cassdc.status.nodeReplacements.map((replacement, index) => {
-            return <div key={'replacement' + index}>{replacement}</div>;
-          })}
+          {cassdc.status.nodeReplacements.map((replacement, index) => (
+            <div key={`replacement${index}`}>{replacement}</div>
+          ))}
         </DrawerItem>
       );
     }
     const cassandraYamlHeader = (
-      <div className="drawer-title-module__DrawerTitle--mJBGT drawer-title-module__title--hFfE2">
-        Cassandra Yaml
-      </div>
+      <div className="drawer-title-module__DrawerTitle--mJBGT drawer-title-module__title--hFfE2">Cassandra Yaml</div>
     );
-    var cassandraYaml = <div>{cassandraYamlHeader}</div>;
+    let cassandraYaml = <div>{cassandraYamlHeader}</div>;
     if (cassdc.spec.config) {
       if ('cassandra-yaml' in cassdc.spec.config) {
         cassandraYaml = (
@@ -40,20 +39,12 @@ export class CassandraDatacenterDetails extends React.Component<CassandraDatacen
                   <TableCell>Setting</TableCell>
                   <TableCell>Value</TableCell>
                 </TableHead>
-                {Object.keys(cassdc.spec.config['cassandra-yaml']).map(
-                  (key, index) => {
-                    return (
-                      <TableRow key={'cassandraYaml' + index}>
-                        <TableCell>{key}</TableCell>
-                        <TableCell>
-                          {JSON.stringify(
-                            cassdc.spec.config['cassandra-yaml'][key],
-                          )}
-                        </TableCell>
-                      </TableRow>
-                    );
-                  },
-                )}
+                {Object.keys(cassdc.spec.config['cassandra-yaml']).map((key, index) => (
+                  <TableRow key={`cassandraYaml${index}`}>
+                    <TableCell>{key}</TableCell>
+                    <TableCell>{JSON.stringify(cassdc.spec.config['cassandra-yaml'][key])}</TableCell>
+                  </TableRow>
+                ))}
               </Table>
             </div>
           </div>
@@ -62,11 +53,9 @@ export class CassandraDatacenterDetails extends React.Component<CassandraDatacen
     }
 
     const jvmOptionsHeader = (
-      <div className="drawer-title-module__DrawerTitle--mJBGT drawer-title-module__title--hFfE2">
-        JVM Options
-      </div>
+      <div className="drawer-title-module__DrawerTitle--mJBGT drawer-title-module__title--hFfE2">JVM Options</div>
     );
-    var jvmOptions = <div>{jvmOptionsHeader}</div>;
+    jvmOptions = <div>{jvmOptionsHeader}</div>;
     if (cassdc.spec.config) {
       if ('jvm-options' in cassdc.spec.config) {
         jvmOptions = (
@@ -83,7 +72,7 @@ export class CassandraDatacenterDetails extends React.Component<CassandraDatacen
         JVM Server Options
       </div>
     );
-    var jvmOptions = <div>{jvmOptionsHeader}</div>;
+    jvmOptions = <div>{jvmOptionsHeader}</div>;
     if (cassdc.spec.config) {
       if ('jvm-server-options' in cassdc.spec.config) {
         jvmOptions = (
@@ -100,7 +89,7 @@ export class CassandraDatacenterDetails extends React.Component<CassandraDatacen
         JVM11 Server Options
       </div>
     );
-    var jvm11Options = <div>{jvm11OptionsHeader}</div>;
+    let jvm11Options = <div>{jvm11OptionsHeader}</div>;
     if (cassdc.spec.config) {
       if (
         'jvm11-server-options' in cassdc.spec.config &&
@@ -114,15 +103,11 @@ export class CassandraDatacenterDetails extends React.Component<CassandraDatacen
                 <TableHead>
                   <TableCell>Setting</TableCell>
                 </TableHead>
-                {cassdc.spec.config['jvm11-server-options'][
-                  'additional-jvm-opts'
-                ].map((setting, index) => {
-                  return (
-                    <TableRow key={'jvm11ServerOptions' + index}>
-                      <TableCell>{setting}</TableCell>
-                    </TableRow>
-                  );
-                })}
+                {cassdc.spec.config['jvm11-server-options']['additional-jvm-opts'].map((setting, index) => (
+                  <TableRow key={`jvm11ServerOptions${index}`}>
+                    <TableCell>{setting}</TableCell>
+                  </TableRow>
+                ))}
               </Table>
             </div>
           </div>
@@ -131,16 +116,11 @@ export class CassandraDatacenterDetails extends React.Component<CassandraDatacen
     }
 
     const cassandraEnvHeader = (
-      <div className="drawer-title-module__DrawerTitle--mJBGT drawer-title-module__title--hFfE2">
-        cassandra-env.sh
-      </div>
+      <div className="drawer-title-module__DrawerTitle--mJBGT drawer-title-module__title--hFfE2">cassandra-env.sh</div>
     );
-    var cassandraEnvOptions = <div>{cassandraEnvHeader}</div>;
+    let cassandraEnvOptions = <div>{cassandraEnvHeader}</div>;
     if (cassdc.spec.config) {
-      if (
-        'cassandra-env-sh' in cassdc.spec.config &&
-        'additional-jvm-opts' in cassdc.spec.config['cassandra-env-sh']
-      ) {
+      if ('cassandra-env-sh' in cassdc.spec.config && 'additional-jvm-opts' in cassdc.spec.config['cassandra-env-sh']) {
         cassandraEnvOptions = (
           <div>
             {cassandraEnvHeader}
@@ -149,15 +129,11 @@ export class CassandraDatacenterDetails extends React.Component<CassandraDatacen
                 <TableHead>
                   <TableCell>Setting</TableCell>
                 </TableHead>
-                {cassdc.spec.config['cassandra-env-sh'][
-                  'additional-jvm-opts'
-                ].map((setting, index) => {
-                  return (
-                    <TableRow key={'cassandra-env-sh' + index}>
-                      <TableCell>{setting}</TableCell>
-                    </TableRow>
-                  );
-                })}
+                {cassdc.spec.config['cassandra-env-sh']['additional-jvm-opts'].map((setting, index) => (
+                  <TableRow key={`cassandra-env-sh${index}`}>
+                    <TableCell>{setting}</TableCell>
+                  </TableRow>
+                ))}
               </Table>
             </div>
           </div>
@@ -173,21 +149,14 @@ export class CassandraDatacenterDetails extends React.Component<CassandraDatacen
         <DrawerItem name="Cluster">{cassdc.spec.clusterName}</DrawerItem>
         <DrawerItem name="Size">{cassdc.spec.size}</DrawerItem>
         <DrawerItem name="Server Type">{cassdc.spec.serverType}</DrawerItem>
-        <DrawerItem name="Server Version">
-          {cassdc.spec.serverVersion}
-        </DrawerItem>
+        <DrawerItem name="Server Version">{cassdc.spec.serverVersion}</DrawerItem>
         <DrawerItem name="Server Image">{cassdc.spec.serverImage}</DrawerItem>
         <DrawerItem name="Cassandra Operator Progress">
-          {
-            <Badge
-              key={'progress' + cassdc.spec.clusterName + cassdc.getName()}
-              label={cassdc.status.cassandraOperatorProgress}
-              className={
-                'success ' +
-                cassdc.status.cassandraOperatorProgress.toLowerCase()
-              }
-            />
-          }
+          <Badge
+            key={`progress${cassdc.spec.clusterName}${cassdc.getName()}`}
+            label={cassdc.status.cassandraOperatorProgress}
+            className={`success ${cassdc.status.cassandraOperatorProgress.toLowerCase()}`}
+          />
         </DrawerItem>
         <DrawerItem name="Status" className="status" labelsOnly>
           {cassdc.status.conditions.map((condition, index) => {
@@ -196,12 +165,7 @@ export class CassandraDatacenterDetails extends React.Component<CassandraDatacen
             if (!kind) return null;
             if (status === 'False') return null;
             return (
-              <Badge
-                key={kind + index}
-                label={kind}
-                className={'success ' + kind.toLowerCase()}
-                tooltip={message}
-              />
+              <Badge key={kind + index} label={kind} className={`success ${kind.toLowerCase()}`} tooltip={message} />
             );
           })}
         </DrawerItem>
@@ -215,9 +179,7 @@ export class CassandraDatacenterDetails extends React.Component<CassandraDatacen
   }
 }
 
-function displayJvmOptions(
-  jvmOptions: CassandraDatacenter['spec']['config']['jvm-options'],
-) {
+function displayJvmOptions(jvmOptions: CassandraDatacenter['spec']['config']['jvm-options']) {
   return (
     <div>
       <Table>
@@ -225,14 +187,12 @@ function displayJvmOptions(
           <TableCell>Setting</TableCell>
           <TableCell>Value</TableCell>
         </TableHead>
-        {Object.keys(jvmOptions).map((key, index) => {
-          return (
-            <TableRow key={'jvmServerOptions' + index}>
-              <TableCell>{key}</TableCell>
-              <TableCell>{jvmOptions[key]}</TableCell>
-            </TableRow>
-          );
-        })}
+        {Object.keys(jvmOptions).map((key, index) => (
+          <TableRow key={`jvmServerOptions${index}`}>
+            <TableCell>{key}</TableCell>
+            <TableCell>{jvmOptions[key]}</TableCell>
+          </TableRow>
+        ))}
       </Table>
     </div>
   );

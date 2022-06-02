@@ -27,24 +27,38 @@
     "start": "webpack --watch",
     "dev": "npm run start",
     "build": "npm run clean && webpack",
-    "pretty": "prettier --write \"./src/**/*{.ts,.tsx,.js,.json,.scss,.css,.less,.html}\"",
+    "pretty:fix": "prettier --write \"./src/**/*{.ts,.tsx,.js,.json,.scss,.css,.less,.html}\"",
     "pretty:check": "prettier --check \"./src/**/*{.ts,.tsx,.js,.json,.scss,.css,.less,.html}\"",
-    "lint": "eslint \"src/**/*.{js,ts,tsx}\" --quiet"
+    "eslint:check": "eslint \"src/**/*.{js,ts,tsx}\" --quiet",
+    "eslint:fix": "eslint \"src/**/*.{js,ts,tsx}\" --quiet --fix",
+    "lint:check": "npm run eslint:check && npm run pretty:check",
+    "lint:fix": "npm run eslint:fix && npm run pretty:fix"
   },
   "lint-staged": {
-    "**/*": "npm run pretty --ignore-unknown"
+    "**/*": "npm run pretty:fix --ignore-unknown"
+  },
+  "dependencies": {
+    "@k8slens/extensions": "^5.0.0",
+    "react": "^17.0.2"
   },
   "devDependencies": {
-    "@k8slens/extensions": "^5.0.0",
+    "@babel/eslint-parser": "^7.18.2",
     "@types/node": "^16.9.1",
     "@types/react": "^17.0.20",
     "@typescript-eslint/eslint-plugin": "^5.27.0",
+    "@typescript-eslint/parser": "^5.27.0",
     "css-loader": "^6.7.1",
     "eslint": "^8.16.0",
+    "eslint-config-airbnb": "^19.0.4",
     "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-jsx-a11y": "^6.5.1",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-react": "^7.30.0",
+    "eslint-plugin-react-hooks": "^4.5.0",
     "husky": "^7.0.1",
     "lint-staged": "^11.0.0",
-    "prettier": "2.3.2",
+    "prettier": "^2.6.2",
     "rimraf": "^3.0.2",
     "sass": "^1.52.1",
     "sass-loader": "^13.0.0",
