@@ -6,7 +6,7 @@ on:
       - 'k8ssandra/**'
 
 jobs:
-  lint_check:
+  test_build:
     name: Test Build
     runs-on: ubuntu-latest
     defaults:
