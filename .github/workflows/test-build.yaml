@@ -3,11 +3,11 @@ name: Lint Check
 on:
   pull_request:
     paths:
-      - 'k8ssnadra/src/**'
+      - 'k8ssandra/src/**'
 
 jobs:
   lint_check:
-    name: Lint Check
+    name: Test Build
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -20,4 +20,4 @@ jobs:
         with:
           node-version: 16.x
       - run: npm install
-      - run: npm run lint:check
+      - run: npm run build
