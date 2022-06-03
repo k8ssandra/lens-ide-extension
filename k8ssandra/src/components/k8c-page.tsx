@@ -9,7 +9,7 @@ const {
 } = Renderer;
 
 enum sortBy {
-  name = 'name',
+  name = "name",
   namespace = 'namespace',
 }
 
