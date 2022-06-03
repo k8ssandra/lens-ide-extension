@@ -3,7 +3,7 @@ name: Lint Check
 on:
   pull_request:
     paths:
-      - 'k8ssnadra/**'
+      - 'k8ssandra/**'
 
 jobs:
   lint_check:
