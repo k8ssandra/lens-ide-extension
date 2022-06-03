@@ -1,9 +1,9 @@
-name: Lint Check
+name: Test Build
 
 on:
   pull_request:
     paths:
-      - 'k8ssandra/src/**'
+      - 'k8ssandra/**'
 
 jobs:
   lint_check:
