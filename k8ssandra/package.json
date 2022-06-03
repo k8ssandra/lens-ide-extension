@@ -35,7 +35,7 @@
     "lint:fix": "npm run eslint:fix && npm run pretty:fix"
   },
   "lint-staged": {
-    "**/*": "npm run pretty:fix --ignore-unknown"
+    "**/*": "npm run lint:fix"
   },
   "dependencies": {
     "@k8slens/extensions": "^5.0.0",
