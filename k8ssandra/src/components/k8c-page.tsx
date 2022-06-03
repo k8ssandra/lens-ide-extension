@@ -9,8 +9,8 @@ const {
 } = Renderer;
 
 enum sortBy {
-  name = "name",
-  namespace = "namespace",
+  name = 'name',
+  namespace = 'namespace',
 }
 
 export class K8ssandraClusterPage extends React.Component<{
