@@ -1,12 +1,16 @@
-import { Renderer} from "@k8slens/extensions";
+import { Renderer } from '@k8slens/extensions';
 
 export class CassandraDatacenter extends Renderer.K8sApi.KubeObject {
-  static kind = "CassandraDatacenter"
-  static namespaced = true
-  static apiBase = "/apis/cassandra.datastax.com/v1beta1/cassandradatacenters"
+  static kind = 'CassandraDatacenter';
 
-  kind: string
-  apiVersion: string
+  static namespaced = true;
+
+  static apiBase = '/apis/cassandra.datastax.com/v1beta1/cassandradatacenters';
+
+  kind: string;
+
+  apiVersion: string;
+
   metadata: {
     name: string;
     namespace: string;
@@ -20,7 +24,8 @@ export class CassandraDatacenter extends Renderer.K8sApi.KubeObject {
     annotations: {
       [key: string]: string;
     };
-  }
+  };
+
   spec: {
     clusterName: string;
     size: number;
@@ -28,21 +33,22 @@ export class CassandraDatacenter extends Renderer.K8sApi.KubeObject {
     serverType: string;
     serverImage: string;
     config: {
-      "cassandra-yaml": {
+      'cassandra-yaml': {
         [key: string]: any;
-      },
-      "jvm-options": {
+      };
+      'jvm-options': {
         [key: string]: string;
-      },
-      "jvm-server-options": CassandraDatacenter["spec"]["config"]["jvm-options"],
-      "jvm11-server-options": {
-        "additional-jvm-opts": string[];
-      },
-      "cassandra-env-sh": {
-        "additional-jvm-opts": string[];
-      },
+      };
+      'jvm-server-options': CassandraDatacenter['spec']['config']['jvm-options'];
+      'jvm11-server-options': {
+        'additional-jvm-opts': string[];
+      };
+      'cassandra-env-sh': {
+        'additional-jvm-opts': string[];
+      };
     };
-  }
+  };
+
   status: {
     conditions: {
       lastTransitionTime: string;
@@ -57,8 +63,8 @@ export class CassandraDatacenter extends Renderer.K8sApi.KubeObject {
       [key: string]: {
         hostId: string;
       };
-    }
+    };
     lastRollingRestart: string;
     lastServerNodeStarted: string;
-  }
+  };
 }

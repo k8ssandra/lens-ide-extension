@@ -1,12 +1,16 @@
-import { Renderer} from "@k8slens/extensions";
+import { Renderer } from '@k8slens/extensions';
 
 export class K8ssandraCluster extends Renderer.K8sApi.KubeObject {
-  static kind = "K8ssandraCluster"
-  static namespaced = true
-  static apiBase = "/apis/k8ssandra.io/v1alpha1/k8ssandraclusters"
+  static kind = 'K8ssandraCluster';
 
-  kind: string
-  apiVersion: string
+  static namespaced = true;
+
+  static apiBase = '/apis/k8ssandra.io/v1alpha1/k8ssandraclusters';
+
+  kind: string;
+
+  apiVersion: string;
+
   metadata: {
     name: string;
     namespace: string;
@@ -20,25 +24,26 @@ export class K8ssandraCluster extends Renderer.K8sApi.KubeObject {
     annotations: {
       [key: string]: string;
     };
-  }
+  };
+
   spec: {
     cassandra: {
       config: {
         cassandraYaml: {
           [key: string]: any;
-        },
+        };
         jvmOptions: {
           [key: string]: string;
-        },
-      },
+        };
+      };
       datacenters: {
-        config: K8ssandraCluster["spec"]["cassandra"]["config"];
+        config: K8ssandraCluster['spec']['cassandra']['config'];
         size: number;
         metadata: {
           name: string;
-        },
+        };
         stopped: boolean;
-        storageConfig: K8ssandraCluster["spec"]["cassandra"]["storageConfig"];  
+        storageConfig: K8ssandraCluster['spec']['cassandra']['storageConfig'];
       }[];
       serverVersion: string;
       storageConfig: {
@@ -51,9 +56,10 @@ export class K8ssandraCluster extends Renderer.K8sApi.KubeObject {
           };
           storageClassName: string;
         };
-      }; 
-    }
-  }
+      };
+    };
+  };
+
   status: {
     datacenters: {
       [key: string]: {
@@ -66,15 +72,15 @@ export class K8ssandraCluster extends Renderer.K8sApi.KubeObject {
             type?: string;
           }[];
           cassandraOperatorProgress: string;
-        },
+        };
         reaper: {
           progress: string;
-        }
+        };
         stargate: {
           progress: string;
           readyReplicasRatio: string;
-        }
-      }
-    }
-  }
+        };
+      };
+    };
+  };
 }

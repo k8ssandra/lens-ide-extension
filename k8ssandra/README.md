@@ -6,8 +6,9 @@ Extension that displays K8ssandra CRDs in a rich way.
 
 ```sh
 mkdir -p ~/.k8slens/extensions
-git clon https://github.com/k8ssandra/lens-ide-extension.git
-ln -s $(pwd)/lens-ide-extension/k8ssandra ~/.k8slens/extensions/k8ssandra
+git clone https://github.com/k8ssandra/lens-ide-extension.git
+cd lens-ide-extension
+make link
 ```
 
 ## Build
@@ -41,7 +42,7 @@ Open Lens application and navigate to a cluster. You should see "K8ssandra" in a
 ## Uninstall
 
 ```sh
-rm ~/.k8slens/extensions/k8ssandra
+make unlink
 ```
 
 Restart Lens application.

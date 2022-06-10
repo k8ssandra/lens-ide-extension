@@ -1,0 +1,23 @@
+name: Lint Check
+
+on:
+  pull_request:
+    paths:
+      - 'k8ssandra/**'
+
+jobs:
+  lint_check:
+    name: Lint Check
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./k8ssandra
+    steps:
+      - uses: actions/checkout@v2
+        name: Checkout code
+      - uses: actions/setup-node@v2
+        name: Setup Node
+        with:
+          node-version: 16.x
+      - run: npm install
+      - run: npm run lint:check
